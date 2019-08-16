@@ -53,6 +53,12 @@ export async function buildBaskets(source: string, target: string) {
           return obj;
         })
         .then(attr => {
+          // build the basket ids
+          const basketIds = {...split};
+          delete(basketIds.core);
+          Object.keys(basketIds).forEach(key=>{
+            basketIds[key]=`${key}`;
+          });
           Object.keys(split)
             .forEach(k=>{
               const basket: any = {};
@@ -60,6 +66,7 @@ export async function buildBaskets(source: string, target: string) {
               const attributions = {};
               if(k==="core") {
                 Object.keys(basket.tree).map(k2=>basket.tree[k2]).forEach(k3=>{attributions[k3]=attr[k3]})
+                basket.baskets = basketIds;
               } else {
                 // TODO: refactor to cleanup and remove attributions already
                 // included in parent baskets
@@ -68,12 +75,13 @@ export async function buildBaskets(source: string, target: string) {
                   Object.keys(v2).map(k3=>v2[k3])
                     .forEach(k4=>{attributions[k4]=attr[k4]})
                 })
+                basket.id = basketIds[k];
               }
               basket.attributions = attributions;
+              console.log(`Writing out basket file for ${k}.`)
               writeFile(`${target}/basket.${k}.json`,JSON.stringify(basket))
             })
     
         })
-        
     });
   }
