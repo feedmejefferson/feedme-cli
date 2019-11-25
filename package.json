@@ -1,5 +1,6 @@
 {
   "name": "feedme-cli",
+  "repository": "https://github.com/feedmejefferson/feedme-cli",
   "version": "0.0.1",
   "description": "A suite of command line tools for working with feedme jefferson",
   "main": "dist/index.js",
@@ -7,6 +8,8 @@
   "bin": {
     "ladle": "bin/feedme"
   },
+  "files": ["/dist"],
+  "prepublish": "tsc",
   "scripts": {
     "build": "tsc",
     "lint": "tslint --project .",
@@ -15,6 +18,7 @@
     "test:watch": "mocha --reporter spec --require ts-node/register --watch --watch-extensions ts 'src/**/*.test.ts'"
   },
   "devDependencies": {
+    "@feedmejefferson/feedme-trees": "0.0.1",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.9",
