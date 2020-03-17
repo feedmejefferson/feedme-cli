@@ -33,6 +33,6 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.2"
   }
 }
